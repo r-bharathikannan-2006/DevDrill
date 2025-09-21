@@ -100,7 +100,7 @@ def generate_questions(video_id):
         print(f"An error occurred: {e} while extracting transcript.")
         return None
     # Structurizing the Transcript
-    api_key = 'AIzaSyCwAek2xvYYHrU4HM_-C8K9I2-CuMxL5Ts'
+    api_key = os.environ['API_KEY_GEMINI']
     ai_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
     headers = {
         'Content-Type': "applicaton/json",
@@ -207,3 +207,4 @@ def summary_extract(video_id):
         return None
 
     
+
