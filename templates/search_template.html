@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevDrill</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: url("https://tse1.mm.bing.net/th/id/OIP.2T8MhbynS_JFxhiOm-o47QHaEg?r=0&cb=ucfimg2ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      animation: fadeIn 1s ease-in;
+    }
+
+    /* Glass container for title + search */
+    .glass-box {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px 40px;
+      text-align: center;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      width: 90%;
+      max-width: 700px;
+    }
+
+    h1 {
+      font-size: 3.5em;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: white;
+      margin: 0;
+    }
+
+    .search-container {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 40px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      width: 100%;
+      max-width: 600px;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .search-container:focus-within {
+      background: rgba(255, 255, 255, 0.35);
+      transform: translateY(-2px);
+    }
+
+    form {
+      display: flex;
+      width: 100%;
+      align-items: center;
+    }
+
+    .search-container input[type="text"] {
+      border: none;
+      outline: none;
+      padding: 12px 16px;
+      font-size: 1.05em;
+      flex-grow: 1;
+      background: transparent;
+      color: #333;
+    }
+
+    .search-container input[type="text"]::placeholder {
+      color: #666;
+    }
+
+    .search-container button {
+      background: linear-gradient(135deg, #ff0000, #cc0000);
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(255, 0, 0, 0.25);
+    }
+
+    .search-container button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 14px rgba(255, 0, 0, 0.35);
+    }
+
+    .search-container button svg {
+      width: 22px;
+      height: 22px;
+      stroke: #fff;
+    }
+
+    /* animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* responsive */
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 2.2em;
+      }
+      .glass-box {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="glass-box">
+    <h1>DevDrill</h1>
+
+    <div class="search-container">
+      <form action="" method="POST">
+        {% csrf_token %}
+        <input type="text" name="query" placeholder="Search for quizzes...">
+        <button type="submit">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" 
+               viewBox="0 0 24 24" fill="none" 
+               stroke="currentColor" stroke-width="2" 
+               stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

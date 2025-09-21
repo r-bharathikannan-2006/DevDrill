@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizTube Search Results</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #f0f2f5, #e8ecf0);
+            margin: 0;
+            padding: 20px;
+            color: #444;
+            min-height: 100vh;
+        }
+
+        .search-results-container {
+            max-width: 1000px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 10px;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .video-container {
+            display: flex;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            padding: 18px;
+            align-items: flex-start;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-container::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0,123,255,0.12) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.4s ease;
+            z-index: 0;
+        }
+
+        .video-container:hover::before {
+            transform: scale(1);
+        }
+
+        .video-container:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-link {
+            display: flex;
+            width: 100%;
+            text-decoration: none;
+            color: inherit;
+            align-items: flex-start;
+            position: relative;
+            z-index: 1;
+        }
+
+        .video-thumbnail {
+            width: 180px;
+            height: 100px;
+            border-radius: 10px;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .video-container:hover .video-thumbnail img {
+            transform: scale(1.08);
+        }
+
+        .video-length {
+            position: absolute;
+            bottom: 6px;
+            right: 6px;
+            background-color: rgba(0, 0, 0, 0.85);
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .video-details {
+            margin-left: 18px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .video-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin: 0 0 6px 0;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: color 0.3s ease;
+        }
+
+        .video-container:hover .video-title {
+            color: #0077ff;
+        }
+
+        .video-info {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+
+        .video-channel,
+        .video-views {
+            display: inline-block;
+            margin-right: 14px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .video-container {
+                flex-direction: column;
+                align-items: center;
+                padding: 14px;
+                text-align: center;
+            }
+
+            .video-thumbnail {
+                width: 100%;
+                height: auto;
+                padding-top: 56.25%;
+                margin-bottom: 12px;
+            }
+
+            .video-thumbnail img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+            .video-details {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="search-results-container">
+        {% for video in videos_list %}
+            <a href="player/{{ video.video_id }}/" class="video-container">
+                <div class="video-thumbnail">
+                    <img src="https://img.youtube.com/vi/{{ video.video_id }}/hqdefault.jpg" alt="Video Thumbnail">
+                    <span class="video-length">{{video.duration}}</span>
+                </div>
+                <div class="video-details">
+                    <h3 class="video-title">{{video.title}}</h3>
+                    <h4>{{video.channel}}</h4>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
