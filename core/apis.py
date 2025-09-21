@@ -2,6 +2,7 @@ import requests
 import json
 import re
 from youtube_transcript_api import YouTubeTranscriptApi
+import os
 
 def parse_duration(iso_string):
     match = re.match(r'PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?', iso_string)
@@ -31,7 +32,7 @@ print(f"Readable Duration: {readable_duration}") # Output: Readable Duration: 12
 # Youtube search
 def search_video(query, maxResults=10):
     """Returns the list of related videos.  Each video object is a dictionary with video_id, title, url as keys."""
-    API_KEY = "AIzaSyC97K2JnqbOT5keH4RCBG8BrCVZjKlxZTA"
+    API_KEY = os.environ['API_KEY_SEARCH']
     search_url = "https://www.googleapis.com/youtube/v3/search"
     videos_url = "https://www.googleapis.com/youtube/v3/videos"
     params = {
@@ -204,4 +205,5 @@ def summary_extract(video_id):
     except Exception as e:
         print(f"Error Occurred while generating questions: {e}")
         return None
+
     
